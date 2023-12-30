@@ -16,6 +16,7 @@ gem "stimulus-rails"
 gem "jbuilder"
 gem 'will_paginate', '~> 3.3'
 gem 'bootstrap-will_paginate', '1.0.0'
+gem 'rails-i18n'
 gem "tzinfo-data", platforms: %i[ mswin mswin64 mingw x64_mingw jruby ]
 
 

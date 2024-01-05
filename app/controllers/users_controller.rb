@@ -2,10 +2,14 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :logged_in_user, only: [:show, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update]
-  before_action :admin_user, only: :destroy
+  before_action :admin_user, only: [:index, :destroy]
 
   def index
-    @users = User.paginate(page: params[:page])
+    if current_user.admin?
+      @users = User.where.not(id: current_user.id).paginate(page: params[:page])
+    else
+      @users = User.paginate(page: params[:page])
+    end
   end
 
   def show
@@ -74,6 +78,8 @@ class UsersController < ApplicationController
 
    # システム管理権限所有かどうか判定します。
    def admin_user
-    redirect_to root_url unless current_user.admin?
+    if current_user.nil? || !current_user.admin?
+      redirect_to root_url
+    end
    end
 end

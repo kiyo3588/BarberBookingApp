@@ -1,0 +1,19 @@
+<% provide(:title, '料金表') %>
+<h1>料金表</h1>
+
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <th>メニュー</th>
+      <th>価格</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @menu_items.each do |menu_item| %>
+      <tr>
+        <td><%= menu_item.menuname %></td>
+        <td><%= number_to_currency(menu_item.price, unit: '¥') %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -11,7 +11,7 @@
   <tbody>
     <% @menu_items.each do |menu_item| %>
       <tr>
-        <td><%= menu_item.menuname %></td>
+        <td><%= menu_item.menu_name %></td>
         <td><%= number_to_currency(menu_item.price, unit: '¥') %></td>
       </tr>
     <% end %>

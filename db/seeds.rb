@@ -15,3 +15,22 @@ User.create!(name: "管理者",
                 password: password,
                 password_confirmation: password)
 end
+
+# サンプルのメニューを作成
+MenuItem.create!(
+  menu_name: "調髪",
+  price: 3600,
+  order: 1
+)
+
+MenuItem.create!(
+  menu_name: "調髪（シャンプーなし",
+  price: 3300,
+  order: 2
+)
+
+MenuItem.create!(
+  menu_name: "調髪（顔剃なし）",
+  price: 3000,
+  order: 3
+)

@@ -9,6 +9,7 @@
       <th>メニュー</th>
       <th>価格</th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -18,6 +19,7 @@
         <td><%= menu_item.menu_name %></td>
         <td><%= number_to_currency(menu_item.price, unit: '¥') %></td>
         <td><%= menu_item.order.to_s.rjust(3, '0') %></td>
+        <td><%= link_to '削除', menu_item_path(menu_item), data: { turbo_method: :delete, turbo_confirm: "削除してよろしいですか？" }, class: "btn btn-danger" %></td>
       </tr>
     <% end %>
   </tbody>

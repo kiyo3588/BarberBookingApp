@@ -1,5 +1,5 @@
 class MenuItemsController < ApplicationController
-  before_action :set_menu_item, only: [:edit, :update]
+  before_action :set_menu_item, only: [:edit, :update, :destroy]
 
   def index
     @menu_items = MenuItem.order(:order)
@@ -29,6 +29,12 @@ class MenuItemsController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @menu_item.destroy
+    flash[:success] = "#{@menu_item.menu_name}のデータを削除しました。"
+    redirect_to menu_item_path
   end
 
     private

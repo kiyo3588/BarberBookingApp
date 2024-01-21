@@ -1,0 +1,31 @@
+<% provide(:title, 'メニューアイテムの編集') %>
+<h1>メニューアイテムの編集</h1>
+
+<%= form_with(model: @menu_item, local: true) do |f| %>
+  <% if @menu_item.errors.any? %>
+    <div id="error_explanation">
+      <div class="alert alert-danger">
+        入力エラーが<%= @menu_item.errors.count %>件がありました。
+      </div>
+      <ul>
+        <% @menu_item.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.label :menu_name, "メニュー名" %>
+  <%= f.text_field :menu_name %>
+
+  <%= f.label :description, "説明" %>
+  <%= f.text_area :description %>
+
+  <%= f.label :price, "価格" %>
+  <%= f.number_field :price %>
+
+  <%= f.label :order, "順序" %>
+  <%= f.number_field :order %>
+
+  <%= f.submit "更新する", class: "btn btn-primary" %>
+<% end %>

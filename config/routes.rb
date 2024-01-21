@@ -9,5 +9,5 @@ Rails.application.routes.draw do
   resources :users
 
   # メニュー料金一覧へのルーティングを追加
-  resources :menu_items, only: [:index, :new, :create]
+  resources :menu_items, only: [:index, :new, :create, :edit, :update]
 end

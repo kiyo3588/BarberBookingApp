@@ -1,7 +1,7 @@
 class MenuItemsController < ApplicationController
 
   def index
-    @menu_items = MenuItem.all
+    @menu_items = MenuItem.order(:order)
   end
 
   def new
@@ -15,6 +15,19 @@ class MenuItemsController < ApplicationController
       redirect_to menu_items_path
     else
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @menu_item = MenuItem.find(params[:id])
+  end
+
+  def update
+    @menu_item = MenuItem.find(params[:id])
+    if @menu_item.update(menu_item_params)
+      redirect_to menu_items_path, notice: 'メニューアイテムが更新されました。'
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 

@@ -4,19 +4,19 @@
 <table class="table table-condensed">
   <thead>
     <tr>
+      <th></th>
       <th>メニュー</th>
       <th>価格</th>
       <th></th>
-      <th>操作</th>
     </tr>
   </thead>
   <tbody>
     <% @menu_items.each do |menu_item| %>
       <tr>
+        <td><%= link_to '編集', edit_menu_item_path(menu_item), class: "btn btn-primary" %></td>
         <td><%= menu_item.menu_name %></td>
         <td><%= number_to_currency(menu_item.price, unit: '¥') %></td>
         <td><%= menu_item.order.to_s.rjust(3, '0') %></td>
-        <td><%= link_to '編集', edit_menu_item_path(menu_item) %></td>
       </tr>
     <% end %>
   </tbody>

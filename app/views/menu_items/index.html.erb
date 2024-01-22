@@ -1,6 +1,9 @@
 <% provide(:title, '料金表') %>
 <h1>料金表</h1>
-<div><%= link_to '新規追加', new_menu_item_path, class: "btn btn-primary btn-lg" %></div>
+
+<% if current_user.admin? %>
+  <div><%= link_to '新規追加', new_menu_item_path, class: "btn btn-primary btn-lg" %></div>
+<% end %>
 
 <table class="table table-condensed">
   <thead>
@@ -15,11 +18,19 @@
   <tbody>
     <% @menu_items.each do |menu_item| %>
       <tr>
-        <td><%= link_to '編集', edit_menu_item_path(menu_item), class: "btn btn-primary" %></td>
-        <td><%= menu_item.menu_name %></td>
-        <td><%= number_to_currency(menu_item.price, unit: '¥') %></td>
-        <td><%= menu_item.order.to_s.rjust(3, '0') %></td>
-        <td><%= link_to '削除', menu_item_path(menu_item), data: { turbo_method: :delete, turbo_confirm: "削除してよろしいですか？" }, class: "btn btn-danger" %></td>
+        <% if current_user.admin? %>
+          <td><%= link_to '編集', edit_menu_item_path(menu_item), class: "btn btn-primary" %></td>
+        <% else %>
+         <td></td>
+        <% end %>
+          <td><%= menu_item.menu_name %></td>
+          <td><%= number_to_currency(menu_item.price, unit: '¥') %></td>
+        <% if current_user.admin? %>
+          <td><%= menu_item.order.to_s.rjust(3, '0') %></td>
+          <td><%= link_to '削除', menu_item_path(menu_item), data: { turbo_method: :delete, turbo_confirm: "削除してよろしいですか？" }, class: "btn btn-danger" %></td>
+        <% else %>
+          <td></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

@@ -4,7 +4,12 @@ include SessionsHelper
 
 
   private
-  
+
+  # paramsハッシュからユーザーを取得します。
+  def set_user
+    @user = User.find(params[:id])
+  end
+
   # ログイン済みのユーザーか確認します。
   def logged_in_user
     unless logged_in?

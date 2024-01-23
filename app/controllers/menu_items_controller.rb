@@ -1,8 +1,8 @@
 class MenuItemsController < ApplicationController
-  before_action :logged_in_user
+  before_action :set_menu_item, only: [:edit, :update, :destroy]
   before_action :admin_user, only: [:new, :create, :edit, :update, :destroy]
-  before_action :set_menu_item, only: [:create, :edit, :update, :destroy]
-
+  
+  
   def index
     @menu_items = MenuItem.order(:order)
   end

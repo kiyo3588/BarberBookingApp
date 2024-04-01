@@ -5,6 +5,7 @@ ruby "3.0.6"
 gem "rails", "~> 7.1.0"
 gem 'bcrypt'
 gem 'faker'
+gem "simple_calendar", "~> 2.0"
 gem 'bootstrap-sass'
 gem "sprockets-rails"
 gem "sqlite3", "~> 1.4"

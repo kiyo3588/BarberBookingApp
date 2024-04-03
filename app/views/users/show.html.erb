@@ -15,4 +15,11 @@
       
     </tr>
   </table>
+
+  <h2>カレンダー</h2>
+  <%= month_calendar do |date| %>
+    <div>
+      <%= link_to date.day, week_calendar_path(start_date: date) %>
+    </div>
+  <% end %>
 </div>

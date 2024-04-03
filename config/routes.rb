@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   post    '/login', to: 'sessions#create'
   delete  '/logout', to: 'sessions#destroy'
 
+  # 週単位のカレンダー表示用のルーティング
+  get 'reservations/week/:start_date', to: 'reservations#show_week', as: 'week_calendar'
+
   resources :users
 
   # メニュー料金一覧へのルーティングを追加

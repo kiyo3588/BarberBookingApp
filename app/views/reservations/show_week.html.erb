@@ -5,11 +5,23 @@
       <p>3ヶ月先まで予約することができます。</p>
     </div>
     <div class="col-12 mt-3">
-      <%= week_calendar events: @reservations do |date, reservations| %>
-        <%= date.day %>
-        <% reservations.each do |reservation| %>
-          <!-- 予約の詳細を表示 -->
-        <% end %>
+      <%= week_calendar events: @reservations, start_date: params[:start_date] do |date, reservations| %>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>時間帯</th>
+              <th><%= date.strftime("%e") %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% times.each do |time| %>
+              <tr>
+                <td><%= time %></td>
+                <td></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
       <% end %>
     </div>
   </div>

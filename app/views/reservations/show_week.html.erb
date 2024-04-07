@@ -5,24 +5,25 @@
       <p>3ヶ月先まで予約することができます。</p>
     </div>
     <div class="col-12 mt-3">
-      <%= week_calendar events: @reservations, start_date: params[:start_date] do |date, reservations| %>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>時間帯</th>
-              <th><%= date.strftime("%e") %></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% times.each do |time| %>
-              <tr>
-                <td><%= time %></td>
-                <td></td>
-              </tr>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>時間帯</th>
+            <% @date_range.each do |day| %>
+              <th><%= t('date.abbr_day_names')[day.wday] %><br><%= day.strftime("%e") %></th>
             <% end %>
-          </tbody>
-        </table>
-      <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% times.each do |time| %>
+            <tr>
+              <td><%= time %></td>
+              <% @date_range.each do |day| %>
+                <td></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
-</div>

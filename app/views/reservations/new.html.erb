@@ -1,0 +1,29 @@
+<h1>新規予約作成</h1>
+
+<%= form_with(model: @reservation, url: reservations_path, local: true) do |form| %>
+  <% if @reservation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@reservation.errors.count, "エラー") %>があります:</h2>
+
+      <ul>
+      <% @reservation.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :day, '日付' %>
+    <%= form.date_field :day %>
+  </div>
+
+  <div class="field">
+    <%= form.label :time, '時間' %>
+    <%= form.time_field :time %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit '予約する' %>
+  </div>
+<% end %>

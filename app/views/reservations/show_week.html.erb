@@ -18,8 +18,10 @@
           <% times.each do |time| %>
             <tr>
               <td><%= time %></td>
-              <% @date_range.each do |day| %>
-                <td></td>
+              <% @reservation_data.each do |data| %>
+                <% reservations_for_day = data[:reservations] %>
+                <% reservation_exist = check_reservation(reservations_for_day, data[:day], time) %>
+                <td><%= reservation_exist ? '✕' : '○' %></td>
               <% end %>
             </tr>
           <% end %>

@@ -15,4 +15,11 @@ module ReservationsHelper
              "16:30",
              "17:00"]
   end
+
+  def check_reservation(reservations, day, time)
+    return false if reservations.blank?
+
+    reservations.any? { |reservation| reservation.day == day && reservation.time == time }
+  end
+
 end

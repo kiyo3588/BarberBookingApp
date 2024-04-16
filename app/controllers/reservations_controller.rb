@@ -9,11 +9,21 @@ class ReservationsController < ApplicationController
   end
   
   def new
-    @reservation = current_user.reservations.build
+    @reservation = Reservation.new
+    @day = params[:day]
+    @time = params[:time]
+    if @day && @time
+      @start_time = DateTime.parse(@day + " " + @time + " " + "JST")
+    else
+      # day と time がない場合の処理
+      flash[:error] = "日付と時間が指定されていません。"
+      redirect_to root_path
+    end
   end
 
   def create
-    @reservation = current_user.reservations.build(reservation_params)
+    @reservation = Reservation.new(reservation_params)
+   
     if @reservation.save
       flash[:success] = "予約を登録しました。"
       redirect_to root_path
@@ -25,6 +35,6 @@ class ReservationsController < ApplicationController
   private
 
   def reservation_params
-    params.require(:reservation).permit(:day, :time, :user_id)
+    params.require(:reservation).permit(:day, :time)
   end
 end

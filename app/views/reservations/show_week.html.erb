@@ -21,7 +21,13 @@
               <% @reservation_data.each do |data| %>
                 <% reservations_for_day = data[:reservations] %>
                 <% reservation_exist = check_reservation(reservations_for_day, data[:day], time) %>
-                <td><%= reservation_exist ? '✕' : '○' %></td>
+                <td>
+                  <% if reservation_exist %>
+                    ✕
+                  <% else %>
+                    <%= link_to '○', new_reservation_path(day: data[:day], time: time) %>
+                  <% end %>
+                </td>
               <% end %>
             </tr>
           <% end %>

@@ -14,5 +14,5 @@ Rails.application.routes.draw do
   # メニュー料金一覧へのルーティングを追加
   resources :menu_items
 
-  resources :reservations, only: [:new, :create]
+  resources :reservations
 end

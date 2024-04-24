@@ -15,17 +15,22 @@
           </tr>
         </thead>
         <tbody>
-          <% times.each do |time| %>
+          <% times.each do |time_str| %>
+            <% time = Time.parse(time_str) %>
             <tr>
-              <td><%= time %></td>
+              <td><%= time.strftime("%H:%M") %></td>
               <% @reservation_data.each do |data| %>
                 <% reservations_for_day = data[:reservations] %>
-                <% reservation_exist = check_reservation(reservations_for_day, data[:day], time) %>
+                <% reservation = reservations_for_day.find { |r| r.start_time.hour == time.hour && r.start_time.min == time.min } %>
                 <td>
-                  <% if reservation_exist %>
+                  <% if reservation.present? %>
                     ✕
                   <% else %>
-                    <%= link_to '○', new_reservation_path(day: data[:day], time: time) %>
+                    <% if Time.current <= data[:day].to_datetime + time.seconds_since_midnight %>
+                      <%= link_to '○', new_reservation_path(day: data[:day], time: time) %>
+                    <% else %>
+                      ✕
+                    <% end %>
                   <% end %>
                 </td>
               <% end %>

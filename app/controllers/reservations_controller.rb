@@ -10,6 +10,11 @@ class ReservationsController < ApplicationController
   
   def new
     @reservation = Reservation.new
+    if params[:day].present? && params[:time].present?
+      # フォームから渡された日付と時間を合成してDateTimeオブジェクトを作成
+      combined_datetime = DateTime.parse("#{params[:day]} #{params[:time]}")
+      @reservation.start_time = combined_datetime
+    end
 
     if params[:day].present? && params[:time].present?
       @day = params[:day].to_date
@@ -23,21 +28,19 @@ class ReservationsController < ApplicationController
   end
 
   def create
+    # フォームからの日付データを正しい形式に変換する
     reservation_params = params.require(:reservation).permit(:day, :time)
-  
-    reservation_params[:user_id] = current_user.id  # ユーザーIDを取得する方法に応じて変更
-
-    # 日付のフォーマットを変換してパース
-    reservation_params[:day] = Date.strptime(reservation_params[:day], "%m月%d日")
+    reservation_params[:user_id] = current_user.id
+    reservation_params[:day] = Date.strptime(reservation_params[:day], '%m月%d日').strftime('%Y-%m-%d')
     
-    # 時間のフォーマットを変換してパース
-    reservation_params[:time] = Time.strptime(reservation_params[:time], "%H:%M")
-
-    # 日付と時間を組み合わせてDateTimeオブジェクトを作成
-    reservation_params[:start_time] = DateTime.new(reservation_params[:day].year, reservation_params[:day].month, reservation_params[:day].day, reservation_params[:time].hour, reservation_params[:time].min)
-
     @reservation = Reservation.new(reservation_params)
-   
+
+    # start_time を生成するロジックを修正する
+    if @reservation.day.present? && @reservation.time.present?
+      combined_datetime = DateTime.parse("#{@reservation.day} #{@reservation.time}")
+      @reservation.start_time = combined_datetime
+    end
+  
     if @reservation.save
       flash[:success] = "予約を登録しました。"
       redirect_to root_path

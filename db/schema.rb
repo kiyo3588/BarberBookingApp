@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_31_234046) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_23_020111) do
   create_table "menu_items", force: :cascade do |t|
     t.string "menu_name"
     t.text "description"
@@ -23,7 +23,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_31_234046) do
 
   create_table "reservations", force: :cascade do |t|
     t.date "day", null: false
-    t.string "time", null: false
+    t.time "time"
     t.bigint "user_id", null: false
     t.datetime "start_time", null: false
     t.datetime "created_at", null: false

@@ -12,12 +12,18 @@
       <td>メールアドレス</td>
       <td><%= @user.email %></td>   
     </tr>
-    <% @reservations.each do |reservation| %>
-      <tr>
-        <td>予約時間</td>
-        <td><%= reservation.start_time.strftime("%Y/%m/%d %p %I:%M") %></td>
-      </tr>
-    <% end %>
+  
+    <tr>
+      <td>予約時間</td>
+      <% if @reservations.any? %>
+        <% @reservations.each do |reservation| %>
+          <td><%= reservation.start_time.strftime("%Y/%m/%d %p %I:%M") %></td>
+        <% end %>
+      <% else %>
+        <td>未定</td>
+      <% end %>
+    </tr>
+    
   </table>
 
   <h2>カレンダー</h2>

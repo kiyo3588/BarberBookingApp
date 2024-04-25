@@ -50,6 +50,13 @@ class ReservationsController < ApplicationController
     end
   end
 
+  def destroy
+    reservation = Reservation.find(params[:id])
+    reservation.destroy
+    flash[:success] = "予約を削除しました。"
+    redirect_to root_path
+  end
+
   private
 
   def reservation_params

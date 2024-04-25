@@ -17,7 +17,9 @@
       <td>予約時間</td>
       <% if @reservations.any? %>
         <% @reservations.each do |reservation| %>
-          <td><%= reservation.start_time.strftime("%Y/%m/%d %p %I:%M") %></td>
+          <td><%= reservation.start_time.strftime("%Y/%m/%d %p %I:%M") %>
+           <%= link_to '削除', reservation_path(reservation), data: { turbo_method: :delete, turbo_confirm: "ほんとうに予約をキャンセルなさいますか？" }, class: "btn btn-danger", style: "margin-left: 30px;" %>
+          </td>
         <% end %>
       <% else %>
         <td>未定</td>

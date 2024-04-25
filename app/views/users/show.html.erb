@@ -5,15 +5,19 @@
   <table class="table table-bordered table-condensed user-table">
     <tr>
       <td>名前</td>
-      <td>メールアドレス</td>
-      
+      <td><%= @user.name %></td>
     </tr>
 
     <tr>
-      <td><%= @user.name %></td>
-      <td><%= @user.email %></td>
-      
+      <td>メールアドレス</td>
+      <td><%= @user.email %></td>   
     </tr>
+    <% @reservations.each do |reservation| %>
+      <tr>
+        <td>予約時間</td>
+        <td><%= reservation.start_time.strftime("%Y/%m/%d %p %I:%M") %></td>
+      </tr>
+    <% end %>
   </table>
 
   <h2>カレンダー</h2>

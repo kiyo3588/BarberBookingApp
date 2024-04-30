@@ -5,26 +5,23 @@
     </div>
     <div class="col-12 mt-3 content">
       <%= form_with(model: @reservation, url: reservations_path, local: true) do |form| %>
-        <% if @reservation.errors.any? %>
-          <div id="error_explanation">
-            <h2><%= pluralize(@reservation.errors.count, "エラー") %>があります:</h2>
-
-            <ul>
-            <% @reservation.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-            </ul>
-          </div>
-        <% end %>
 
         <div class="day form-group">
           <%= form.label :day, '日付' %>
-          <%= form.text_field :day, class: 'form-control', value: @day.strftime('%m月%d日'), readonly: true %>
+          <% if @day.present? %>
+            <%= form.text_field :day, class: 'form-control', value: @day.strftime('%m月%d日'), readonly: true %>
+          <% else %>
+            <%= form.text_field :day, class: 'form-control', readonly: true %>
+          <% end %>
         </div>
 
         <div class="time form-group">
           <%= form.label :time, '時間' %>
-          <%= form.text_field :time, class: 'form-control', value: @time.strftime('%H:%M'), readonly: true %>
+          <% if @time.present? %>
+            <%= form.text_field :time, class: 'form-control', value: @time.strftime('%H:%M'), readonly: true %>
+          <% else %>
+            <%= form.text_field :time, class: 'form-control', readonly: true %>
+          <% end %>
         </div>
         <%= hidden_field_tag :user_id, current_user.id %>
 

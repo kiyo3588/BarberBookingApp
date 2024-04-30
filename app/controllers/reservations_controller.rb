@@ -10,16 +10,15 @@ class ReservationsController < ApplicationController
   
   def new
     @reservation = Reservation.new
+    @day = Date.current # 初期値を設定
+    @time = Time.current # 現在時刻を初期値として設定
+
     if params[:day].present? && params[:time].present?
       # フォームから渡された日付と時間を合成してDateTimeオブジェクトを作成
       combined_datetime = DateTime.parse("#{params[:day]} #{params[:time]}")
       @reservation.start_time = combined_datetime
-    end
-
-    if params[:day].present? && params[:time].present?
       @day = params[:day].to_date
       @time = params[:time].to_time
-      @start_time = DateTime.parse(@day.to_s + " " + @time.to_s + " " + "JST")
     else
       # day と time がない場合の処理
       flash[:error] = "日付と時間が指定されていません。"
@@ -45,7 +44,7 @@ class ReservationsController < ApplicationController
       flash[:success] = "予約を登録しました。"
       redirect_to root_path
     else
-      flash[:danger] = "予約をやり直してください。"
+      flash.now[:danger] = @reservation.errors.full_messages.join(", ")
       render :new, status: :unprocessable_entity
     end
   end

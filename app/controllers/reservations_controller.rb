@@ -45,7 +45,10 @@ class ReservationsController < ApplicationController
       redirect_to root_path
     else
       flash.now[:danger] = @reservation.errors.full_messages.join(", ")
-      render :new, status: :unprocessable_entity
+      @start_date = @reservation.start_time.to_date  # 選択した日付を設定
+      @reservation_data = Reservation.reservation_data(@start_date)  # 予約データを取得
+      @date_range = (@start_date..(@start_date + 6.days)).to_a  # 日付範囲を設定
+      render 'show_week', status: :unprocessable_entity
     end
   end
 

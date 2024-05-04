@@ -59,6 +59,10 @@ class ReservationsController < ApplicationController
     redirect_to root_path
   end
 
+  def index
+    @reservations = Reservation.all.order(:day, :start_time)
+  end
+
   private
 
   def reservation_params

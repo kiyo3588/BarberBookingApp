@@ -16,3 +16,5 @@ ja:
           description: "説明"
           price: "価格"
           order: "料金表並び順"
+        reservation:
+          start_time: 予約時間

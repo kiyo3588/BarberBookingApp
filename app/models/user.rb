@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :reservations, dependent: :destroy
+  has_one :reservation, dependent: :destroy
   # 「remember_token」という仮想の属性を作成します。
   attr_accessor :remember_token
   before_save { self.email = email.downcase }
@@ -12,6 +12,8 @@ class User < ApplicationRecord
                     uniqueness: true
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+
+  validate :has_one_reservation_at_most
 
   # 渡された文字列のハッシュ値を返します。
   def User.digest(string)
@@ -46,4 +48,13 @@ class User < ApplicationRecord
   def forget
     update_attribute(:remember_digest, nil)
   end
+
+  private
+
+  def has_one_reservation_at_most
+    if reservation.present?
+      errors.add(:base, "You can only have one reservation at a time")
+    end
+  end
+
 end

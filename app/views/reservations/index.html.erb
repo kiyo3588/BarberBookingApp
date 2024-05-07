@@ -20,7 +20,11 @@
               <td><%= reservation.day.strftime("%m月%d日") %></td>
               <td><%= reservation.start_time.strftime("%H:%M") %></td>
               <td><%= reservation.user.name %></td>
-              <td></td>
+              <% if reservation.visited? %>
+                <td><%= "来店済" %></td>
+              <% else %>
+                <td><%= button_to "来店", { action: :create_visit_history, id: reservation.id }, method: :post, class: "btn btn-primary" %></td>
+              <% end %>
             </tr>
           <% end %>
         </tbody>

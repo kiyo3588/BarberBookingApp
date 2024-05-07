@@ -15,4 +15,10 @@ Rails.application.routes.draw do
   resources :menu_items
 
   resources :reservations
+
+  resources :reservations do
+    collection do
+      post :create_visit_history
+    end
+  end
 end

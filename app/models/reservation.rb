@@ -23,6 +23,10 @@ class Reservation < ApplicationRecord
     reservation_data
   end
 
+  def visited?
+    !visit_time.nil?
+  end
+
   private
 
   def start_time_cannot_be_in_the_past

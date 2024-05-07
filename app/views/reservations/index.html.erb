@@ -1,20 +1,59 @@
-<h1>予約一覧</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-12 text-center">
+      <h1>今日の予約</h1>
+    </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>日付</th>
-      <th>予約開始時間</th>
-      <th>ユーザー名</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @reservations.each do |reservation| %>
-      <tr>
-        <td><%= reservation.day.strftime("%Y年%m月%d日") %></td>
-        <td><%= reservation.start_time.strftime("%H:%M") %></td>
-        <td><%= reservation.user.name %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <div class="col-12 mt-3">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>日付</th>
+            <th>予約開始時間</th>
+            <th>ユーザー名</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% today_reservations(@reservations).each do |reservation| %>
+            <tr>
+              <td><%= reservation.day.strftime("%m月%d日") %></td>
+              <td><%= reservation.start_time.strftime("%H:%M") %></td>
+              <td><%= reservation.user.name %></td>
+              <td></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12 text-center">
+      <h1>明日以降の予約</h1>
+    </div>
+
+    <div class="col-12 mt-3">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>日付</th>
+            <th>予約開始時間</th>
+            <th>ユーザー名</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% future_reservations(@reservations).each do |reservation| %>
+            <tr>
+              <td><%= reservation.day.strftime("%m月%d日") %></td>
+              <td><%= reservation.start_time.strftime("%H:%M") %></td>
+              <td><%= reservation.user.name %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -22,4 +22,13 @@ module ReservationsHelper
     reservations.any? { |reservation| reservation.day == day && reservation.time == time }
   end
 
+  # 当時値の予約表示
+  def today_reservations(reservations)
+    reservations.select { |reservation| reservation.day == Date.today }
+  end
+
+  # 明日以降の予約常時
+  def future_reservations(reservations)
+    reservations.select { |reservation| reservation.day > Date.today }
+  end
 end

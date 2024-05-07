@@ -1,5 +1,7 @@
 class ReservationsController < ApplicationController
   before_action :logged_in_user
+  before_action :admin_user, only: [:index] # indexアクションのみ管理者のみに制限
+
 
   def show_week
     # 週単位のカレンダーを表示するための追加ロジックが必要な場合はここに記述
@@ -67,5 +69,9 @@ class ReservationsController < ApplicationController
 
   def reservation_params
     params.require(:reservation).permit(:day, :time,)
+  end
+
+  def admin_user
+    redirect_to root_url unless current_user&.admin?
   end
 end

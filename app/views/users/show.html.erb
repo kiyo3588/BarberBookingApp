@@ -14,6 +14,11 @@
     </tr>
   
     <tr>
+      <td>前回来店日時</td>
+      <td><%= @reservation.visit_time.strftime("%Y/%m/%d %p %I:%M") if @reservation.present? && @reservation.visit_time.present? %></td>   
+    </tr>
+
+    <tr>
       <td>予約時間</td>
       <% if @reservation.present? %>
         <td>

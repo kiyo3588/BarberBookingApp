@@ -1,5 +1,5 @@
 class Reservation < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: true
 
   # 開始時間は現在時刻より後でなければならない
   validates :start_time, presence: true, uniqueness: { scope: :user_id }

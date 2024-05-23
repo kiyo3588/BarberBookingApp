@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_07_015631) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_21_233126) do
   create_table "menu_items", force: :cascade do |t|
     t.string "menu_name"
     t.text "description"
@@ -25,7 +25,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_07_015631) do
     t.date "day", null: false
     t.time "time"
     t.bigint "user_id", null: false
-    t.datetime "start_time", null: false
+    t.datetime "start_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "visit_time"
@@ -40,6 +40,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_07_015631) do
     t.string "password_digest"
     t.string "remember_digest"
     t.boolean "admin", default: false
+    t.datetime "visited_time"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

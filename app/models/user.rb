@@ -13,7 +13,7 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
-  validate :has_one_reservation_at_most
+  validate :has_one_reservation_at_most, on: :create
 
   # 渡された文字列のハッシュ値を返します。
   def User.digest(string)
@@ -47,6 +47,10 @@ class User < ApplicationRecord
   # ユーザーのログイン情報を破棄します。
   def forget
     update_attribute(:remember_digest, nil)
+  end
+
+  def last_visit_time
+    visited_time
   end
 
   private

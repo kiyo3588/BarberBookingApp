@@ -17,8 +17,11 @@ Rails.application.routes.draw do
   resources :reservations
 
   resources :reservations do
-    collection do
-      post :create_visit_history
+    member do
+      post 'mark_as_visited'
     end
+    # collection do
+    #   post :create_visit_history
+    # end
   end
 end

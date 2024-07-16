@@ -23,7 +23,7 @@
               <% if reservation.visited? %>
                 <td><%= "来店済" %></td>
               <% else %>
-                <td><%= button_to "来店", { action: :create_visit_history, id: reservation.id }, method: :post, class: "btn btn-primary" %></td>
+                <td><%= button_to "来店", mark_as_visited_reservation_path(reservation), method: :post, class: "btn btn-primary" %></td>
               <% end %>
             </tr>
           <% end %>

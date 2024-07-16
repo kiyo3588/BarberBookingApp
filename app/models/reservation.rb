@@ -1,5 +1,5 @@
 class Reservation < ApplicationRecord
-  belongs_to :user, optional: true
+  belongs_to :user
 
   # 開始時間は現在時刻より後でなければならない
   validates :start_time, presence: true, uniqueness: { scope: :user_id }
@@ -24,7 +24,7 @@ class Reservation < ApplicationRecord
   end
 
   def visited?
-    !visit_time.nil?
+    user.visited_time.present? && user.visited_time >= start_time
   end
 
   private

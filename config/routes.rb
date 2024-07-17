@@ -20,8 +20,5 @@ Rails.application.routes.draw do
     member do
       post 'mark_as_visited'
     end
-    # collection do
-    #   post :create_visit_history
-    # end
   end
 end

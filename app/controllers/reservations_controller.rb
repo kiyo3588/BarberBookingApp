@@ -65,6 +65,21 @@ class ReservationsController < ApplicationController
     @reservations = Reservation.all.order(:day, :start_time)
   end
 
+  # def create_visit_history
+  #   @reservation = Reservation.find(params[:id])
+
+  #   if @reservation.visited?
+  #     flash[:warning] = "この予約は既に来店済みです。"
+  #   else
+  #     # 予約された日時を visit_time として来店履歴に登録する
+  #     @reservation.update(visit_time: @reservation.start_time)
+    
+  #     # 必要なリダイレクトやフラッシュメッセージを設定する
+  #     flash[:success] = "来店履歴を登録しました。"
+  #   end
+  #   redirect_to root_path
+  # end
+
   def mark_as_visited
     @reservation = Reservation.find(params[:id])
     user = @reservation.user

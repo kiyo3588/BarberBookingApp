@@ -12,17 +12,23 @@ class ReservationsController < ApplicationController
   
   def new
     @reservation = Reservation.new
-    @day = Date.current # 初期値を設定
-    @time = Time.current # 現在時刻を初期値として設定
 
     if params[:day].present? && params[:time].present?
       # フォームから渡された日付と時間を合成してDateTimeオブジェクトを作成
-      combined_datetime = DateTime.parse("#{params[:day]} #{params[:time]}")
-      @reservation.start_time = combined_datetime
       @day = params[:day].to_date
       @time = params[:time].to_time
+      
+      # 休業日チェック
+      if ClosedDay.closed?(@day)
+        flash[:alert] = "申し訳ありませんが、#{@day.strftime('%Y年%m月%d日')}は休業日のため予約できません。"
+        redirect_to week_calendar_path(start_date: @day.beginning_of_week.strftime('%Y-%m-%d'))
+        return
+      end
+
+      # 日付と時間を合成してDateTimeオブジェクトを作成
+      combined_datetime = DateTime.parse("#{params[:day]} #{params[:time]}")
+      @reservation.start_time = combined_datetime
     else
-      # day と time がない場合の処理
       flash[:error] = "日付と時間が指定されていません。"
       redirect_to root_path
     end

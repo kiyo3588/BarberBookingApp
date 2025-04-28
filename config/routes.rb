@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   # メニュー料金一覧へのルーティングを追加
   resources :menu_items
 
+  resources :closed_days
+
   resources :reservations
 
   resources :reservations do

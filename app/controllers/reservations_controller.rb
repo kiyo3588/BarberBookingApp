@@ -8,6 +8,9 @@ class ReservationsController < ApplicationController
     @start_date = params[:start_date].to_date
     @reservation_data = Reservation.reservation_data(@start_date)
     @date_range = (@start_date..(@start_date + 6.days)).to_a
+
+    # 表示期間の休業日を取得
+    @closed_days = ClosedDay.in_range(@start_date, @start_date + 6.days)
   end
   
   def new

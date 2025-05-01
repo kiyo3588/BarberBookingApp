@@ -35,11 +35,14 @@
     <div class="card mt-4">
       <div class="card-header">カレンダー表示</div>
       <div class="card-body">
-        <%= month_calendar do |date| %>
+        <%= month_calendar(calendar_class: SimpleCalendar::CustomCalendar) do |date| %>
           <div>
             <%= date.day %>
             <% if ClosedDay.closed?(date) %>
               <div class="closed-day-badge">休</div>
+              <% if reason = closed_day_reason(date) %>
+                <div class="closed-day-reason"><%= reason %></div>
+              <% end %>
             <% end %>
           </div>
         <% end %>

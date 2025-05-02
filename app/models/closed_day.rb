@@ -8,6 +8,6 @@ class ClosedDay < ApplicationRecord
 
   # 期間内の休業日を取得
   def self.in_range(start_date, end_date)
-    where(date: start_date..end_date)
+    where(date: start_date..end_date).order(:date)
   end
 end

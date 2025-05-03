@@ -10,4 +10,5 @@ class ClosedDay < ApplicationRecord
   def self.in_range(start_date, end_date)
     where(date: start_date..end_date).order(:date)
   end
+  
 end

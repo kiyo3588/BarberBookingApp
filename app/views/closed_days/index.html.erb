@@ -67,7 +67,7 @@
               <% @closed_days.each do |closed_day| %>
                 <tr>
                   <td><%= closed_day.date.strftime('%Y年%m月%d日') %></td>
-                  <td><%= closed_day.reason.present? ? closed_day.reason : "未設定" %></td>
+                  <td><%= closed_day.reason.present? ? closed_day.reason : "定休日" %></td>
                   <td>
                     <%= link_to "編集", edit_closed_day_path(closed_day), class: "btn btn-sm btn-info" %>
                     <%= link_to "削除", closed_day_path(closed_day), 

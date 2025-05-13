@@ -34,6 +34,16 @@
   <%= month_calendar do |date| %>
     <div>
       <%= link_to date.day, week_calendar_path(start_date: date) %>
+
+      <% if ClosedDay.closed?(date) %>
+        <% closed_day = ClosedDay.find_by(date: date) %>
+          <div class="closed-day">
+            休業日
+            <% if closed_day && closed_day.reason.present? %>
+              <small>(<%= closed_day.display_reason %>)</small>
+            <% end %>
+          </div>
+      <% end %>
     </div>
   <% end %>
 </div>

@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'closed_days/index'
+  get 'closed_days/new'
+  get 'closed_days/create'
+  get 'closed_days/edit'
+  get 'closed_days/update'
+  get 'closed_days/destroy'
   root 'static_pages#top'
   get '/signup', to: 'users#new'
 
@@ -13,6 +19,8 @@ Rails.application.routes.draw do
 
   # メニュー料金一覧へのルーティングを追加
   resources :menu_items
+
+  resources :closed_days
 
   resources :reservations
 

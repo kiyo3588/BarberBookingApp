@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_21_233126) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_23_063106) do
+  create_table "closed_days", force: :cascade do |t|
+    t.date "date", null: false
+    t.string "reason"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["date"], name: "index_closed_days_on_date", unique: true
+  end
+
   create_table "menu_items", force: :cascade do |t|
     t.string "menu_name"
     t.text "description"
@@ -28,7 +36,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_21_233126) do
     t.datetime "start_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "visit_time"
+    t.integer "status", default: 0
+    t.integer "reservation_type", default: 0, null: false
+    t.index ["reservation_type"], name: "index_reservations_on_reservation_type"
+    t.index ["status"], name: "index_reservations_on_status"
     t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 
